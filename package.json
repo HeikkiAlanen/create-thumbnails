@@ -2,7 +2,7 @@
   "name": "create-thumbnails",
   "version": "0.1.0",
   "description": "Simple application to create thumbnails.",
-  "main": "app-create-thumbnails.js",
+  "main": "task-6.js",
   "dependencies": {
     "easyimage": "^1.0.2"
   },
