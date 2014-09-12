@@ -3,7 +3,11 @@ var easyimg = require('easyimage');
 
 module.exports = function (imgDirectory) {
     // Path to source and destination
-    var srcPath = './' + imgDirectory;
+    var srcPath = imgDirectory;
+    // Just in case
+    if(srcPath.indexOf('/') == -1) {
+        srcPath = './' + srcPath;
+    }
     var dstPath = srcPath + '/thumbnails';
 
     // If source directory does not exist, return false.
@@ -24,14 +28,9 @@ module.exports = function (imgDirectory) {
         var srcFile = srcPath + '/' + image;
         var dstFile = dstPath + '/' + image.replace(/\.jpg$/, '_thumb.jpg');
         
-        /* For testing purposes
-        console.log(srcFile);
-        console.log(dstFile);
-        */
-
         // If source is a file then create thumbnail
         var stat = fs.statSync(srcFile)
-        if (stat && stat.isFile()) {
+        if (stat && stat.isFile() && ((srcFile.indexOf('.jpg') > -1) || (srcFile.indexOf('.png') > -1))) {
             easyimg.thumbnail({
                 src: srcFile, 
                 dst: dstFile,
@@ -44,7 +43,7 @@ module.exports = function (imgDirectory) {
                  console.log('Thumbnail created: ' + image.name + ' ' + image.width + ' x ' + image.height);
               },
               function (err) {
-                console.log("Can't create thumbnail!");
+                console.log("Can't create thumbnail! ");
               }
             );
         }
